@@ -108,6 +108,11 @@
   margin-left: 0.5rem;
 }
 
+.expressionInput {
+  width: clamp(50vw, 600px, 100vw);
+  height: 10em;
+}
+
 @media (max-width: 600px) {
   .grid {
     width: 100%;

@@ -4,12 +4,14 @@ import { ChangeEvent, useState } from "react";
 import styles from "../styles/Home.module.css";
 
 interface DSLExample {
+  id: string;
   label: string;
   dsl: string;
 }
 
 const examples: readonly DSLExample[] = [
   {
+    id: "multiply",
     label: "Simple multiplication",
     dsl: `{
   "expression": {"fn": "*", "a": "sales", "b": 2},
@@ -17,6 +19,7 @@ const examples: readonly DSLExample[] = [
 }`,
   },
   {
+    id: "divide",
     label: "Simple division",
     dsl: `{
   "expression": {"fn": "/", "a": "price", "b": "eps"},
@@ -24,6 +27,7 @@ const examples: readonly DSLExample[] = [
 }`,
   },
   {
+    id: "nested",
     label: "Nested expression",
     dsl: `{
   "expression": {
@@ -59,6 +63,7 @@ const Home: NextPage = () => {
           evaluate it
         </p>
         <textarea
+          data-testid="expression-input"
           className={styles.expressionInput}
           placeholder="Enter your DSL"
           value={expression}
@@ -66,12 +71,19 @@ const Home: NextPage = () => {
             setExpression(e.target.value)
           }
         ></textarea>
-        <button type="button">Run</button>
+        <button data-testid="run-button" type="button">
+          Run
+        </button>
 
         <hr />
         <h2>Pre-canned examples</h2>
-        {examples.map(({ label, dsl }) => (
-          <button type="button" onClick={setDsl(dsl)}>
+        {examples.map(({ id, label, dsl }) => (
+          <button
+            type="button"
+            onClick={setDsl(dsl)}
+            key={id}
+            data-testid={`button-${id}`}
+          >
             {label}
           </button>
         ))}

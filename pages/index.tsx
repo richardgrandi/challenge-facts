@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import { ChangeEvent, useState } from "react";
-import styles from "../styles/Home.module.css";
+import styles from "./index.module.css";
 
 interface DSLExample {
   id: string;
@@ -45,50 +45,84 @@ const Home: NextPage = () => {
   const setDsl = (dsl: string) => () => setExpression(dsl);
 
   return (
-    <div className={styles.container}>
+    <>
       <Head>
         <title>Stockopedia facts challenge</title>
         <meta
           name="description"
           content="Coding challenge for Stockopedia Ltd"
         />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>Welcome to facts!</h1>
-
-        <p className={styles.description}>
-          Enter the DSL query below and press the <strong>run</strong> button to
-          evaluate it
+      <main className={styles.container}>
+        <h1>Welcome to facts!</h1>
+        <p>
+          Enter the DSL query below and press the{" "}
+          <strong>
+            <q>run</q>
+          </strong>{" "}
+          button to evaluate it.
         </p>
-        <textarea
-          data-testid="expression-input"
-          className={styles.expressionInput}
-          placeholder="Enter your DSL"
-          value={expression}
-          onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
-            setExpression(e.target.value)
-          }
-        ></textarea>
-        <button data-testid="run-button" type="button">
-          Run
-        </button>
 
-        <hr />
-        <h2>Pre-canned examples</h2>
-        {examples.map(({ id, label, dsl }) => (
-          <button
-            type="button"
-            onClick={setDsl(dsl)}
-            key={id}
-            data-testid={`button-${id}`}
+        {/* Pre-canned Examples Section */}
+        <div className={styles.section}>
+          <p id="pre-canned-description">
+            <strong>Pre-canned examples:</strong>
+          </p>
+          <nav
+            className={styles.navigation}
+            aria-describedby="pre-canned-description"
           >
-            {label}
+            {examples.map(({ id, label, dsl }) => (
+              <button
+                type="button"
+                onClick={setDsl(dsl)}
+                key={id}
+                data-testid={`button-${id}`}
+              >
+                {label}
+              </button>
+            ))}
+          </nav>
+        </div>
+
+        {/* DSL Editor Section */}
+        <div className={styles.section}>
+          <label htmlFor="dsl-expression">DSL Expression:</label>
+          <textarea
+            id="dsl-expression"
+            className={styles.field}
+            data-testid="expression-input"
+            placeholder="Enter your DSL"
+            value={expression}
+            onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
+              setExpression(e.target.value)
+            }
+            rows={8}
+          ></textarea>
+          <div className={[styles.message, styles.messageSuccess].join(" ")}>
+            DSL query ran successfully!
+          </div>
+          <div className={[styles.message, styles.messageError].join(" ")}>
+            There is a problem with your DSL query.
+          </div>
+          <button data-testid="run-button" type="button">
+            Run
           </button>
-        ))}
+        </div>
+
+        {/* DSL Output Section */}
+        <div className={styles.section}>
+          <label htmlFor="dsl-output">Output:</label>
+          <textarea
+            id="dsl-output"
+            className={styles.field}
+            readOnly
+            rows={1}
+          ></textarea>
+        </div>
       </main>
-    </div>
+    </>
   );
 };
 

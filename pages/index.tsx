@@ -38,6 +38,30 @@ const examples: readonly DSLExample[] = [
   "security": "CDE"
 }`,
   },
+  {
+    id: "invalid-json",
+    label: "Invalid JSON",
+    dsl: `{
+  "expression": {"fn": "+", "a": "price", "b": "eps"},
+  "security": "BCD"
+`,
+  },
+  {
+    id: "invalid-dsl",
+    label: "Invalid DSL",
+    dsl: `{
+  "wrong": 123,
+  "security": "BCD"
+}`,
+  },
+  {
+    id: "missing-security",
+    label: "Missing security",
+    dsl: `{
+  "expression": {"fn": "*", "a": "sales", "b": 2},
+  "security": "ZZZ"
+}`,
+  },
 ];
 
 const Home: NextPage = () => {

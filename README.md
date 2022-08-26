@@ -1,8 +1,15 @@
 # Stockopedia Interview Project
 
-The goal of the project is to build a small interpreter for a JSON based DSL that performs some simple analytics on a data set. This should be handled via a simple web UI.
+The goal of the project is to build a small interpreter for a JSON-based DSL that performs some simple analytics on a data set. This should be handled via a simple web UI.
 
 You should aim to spend a few hours on the project; it's ok if you don't finish! Please indicate any areas that are incomplete and how you might finish them given more time.
+
+## Requirements
+
+- The example expressions are correctly interpreted and give the correct result
+- Syntactically invalid DSLs are handled and the user made aware (i.e. malformed JSON)
+- Syntactically valid DSLs which do not adhere to the schema are handled the user made aware
+- Valid DSL expressions that fail on either attribute or security look-up are handled and the user made aware
 
 ## The Data
 

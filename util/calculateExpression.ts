@@ -1,11 +1,11 @@
 import { FullExpression } from "../models/expression";
 import { Operators } from "./operators";
 
-const { SITE_URL } = process.env;
+const { NEXT_PUBLIC_SITE_URL } = process.env;
 
 async function getData(input: FullExpression) {
     return await (
-        await fetch(`${SITE_URL}/api/data/`, {
+        await fetch(`${NEXT_PUBLIC_SITE_URL}/api/data/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

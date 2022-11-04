@@ -1,6 +1,6 @@
-import type { GetStaticProps, NextPage } from "next";
+import type { NextPage } from "next";
 import Head from "next/head";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import styles from "./index.module.css";
 import validateQuery from '../util/validateQuery';
 import calculateExpression from "../util/calculateExpression";

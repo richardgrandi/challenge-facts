@@ -80,6 +80,7 @@ const Home: NextPage = () => {
 
   const evaluateQuery = async (query: string) => {
     setSubmitted(true);
+    setOutput('');
     const validExpression:string|boolean = validateQuery(query);
     if (typeof validExpression === 'string') {
       setErrorMessage(validExpression);

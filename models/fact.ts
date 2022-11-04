@@ -1,5 +1,5 @@
 export interface Fact {
-  securityId: number;
-  attributeId: number;
+  security_id: number;
+  attribute_id: number;
   value: number;
 }

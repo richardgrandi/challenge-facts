@@ -38,3 +38,10 @@
   --message-background: var(--color-success);
   --message-color: #fff;
 }
+
+.message--error--code {
+  display: block;
+  outline: 1px solid #fff;
+  padding: 3px;
+  margin: 10px 0;
+}

@@ -2,11 +2,18 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import { ChangeEvent, useState } from "react";
 import styles from "./index.module.css";
+import validateQuery from '../util/validateQuery';
+import calculateExpression from "../util/calculateExpression";
 
 interface DSLExample {
   id: string;
   label: string;
   dsl: string;
+}
+
+interface ExpressionOutput {
+  error: string;
+  result?: string;
 }
 
 const examples: readonly DSLExample[] = [
@@ -67,6 +74,26 @@ const examples: readonly DSLExample[] = [
 const Home: NextPage = () => {
   const [expression, setExpression] = useState<string>(examples[0].dsl);
   const setDsl = (dsl: string) => () => setExpression(dsl);
+  const [output, setOutput] = useState<string>('');
+  const [errorMessage, setErrorMessage] = useState<string|undefined>(undefined);
+  const [submitted, setSubmitted] = useState<boolean>(false);
+
+  const evaluateQuery = async (query: string) => {
+    setSubmitted(true);
+    const validExpression:string|boolean = validateQuery(query);
+    if (typeof validExpression === 'string') {
+      setErrorMessage(validExpression);
+    } else {
+      setErrorMessage(undefined);
+      const rawOutput:ExpressionOutput = await calculateExpression(JSON.parse(expression)) as ExpressionOutput;
+
+      if (rawOutput.error) {
+        setErrorMessage(rawOutput.error);
+      } else {
+        rawOutput.result && setOutput(rawOutput.result)
+      }
+    }
+  }
 
   return (
     <>
@@ -124,13 +151,19 @@ const Home: NextPage = () => {
             }
             rows={8}
           ></textarea>
-          <div className={[styles.message, styles.messageSuccess].join(" ")}>
-            DSL query ran successfully!
-          </div>
-          <div className={[styles.message, styles.messageError].join(" ")}>
-            There is a problem with your DSL query.
-          </div>
-          <button data-testid="run-button" type="button">
+          { submitted &&
+            (!errorMessage ? 
+              <div className={[styles.message, styles.messageSuccess].join(" ")}>
+                DSL query ran successfully!
+              </div>
+              :
+              <div className={[styles.message, styles.messageError].join(" ")}>
+                There is a problem with your DSL query. The following error code was given:
+                <code className={styles.messageErrorCode}>{errorMessage}</code>
+              </div>
+            )
+          }
+          <button onClick={() => evaluateQuery(expression)} data-testid="run-button" type="button">
             Run
           </button>
         </div>
@@ -143,7 +176,9 @@ const Home: NextPage = () => {
             className={styles.field}
             readOnly
             rows={1}
-          ></textarea>
+            value={output}
+          >
+          </textarea>
         </div>
       </main>
     </>

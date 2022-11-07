@@ -4,6 +4,20 @@ The goal of the project is to build a small interpreter for a JSON-based DSL tha
 
 You should aim to spend a few hours on the project; it's ok if you don't finish! Please indicate any areas that are incomplete and how you might finish them given more time.
 
+## Developer thoughts and improvements
+I have hosted my implementation of this tool on Vercel, at (challenge-facts.vercel.app)[https://challenge-facts.vercel.app]. You can browse through the (commit history)[https://github.com/richardgrandi/challenge-facts/commits/main] to see the code I added, or I can make a PR to the original repo so you can review the code in that way. Whichever is preferable.
+
+This tool should correctly parse the DSL query:
+- identifying invalid JSON and throwing a meaningful error
+- identifying invalid DSL (checking existence of required properties) and throwing a meaningful error
+- identifying and matching security string to those in the data
+
+It should then perform any of the four main operations - addition, subtraction, division or multiplication.
+
+If I spent more time doing this, I would refactor the logic code at `pages/api/data.ts` to be leaner and work in a loop rather than "find the first attribute, find the second attribute, compare them against the security and gather the fact". This would also make it simpler to handle nested expressions - which this implementation does not do.
+
+I did not implement any of the jest testing. This is an area that I have less commercial experience in, and felt that it would be better to show some of the areas I'm stronger in whilst acknowledging that this is something I need to work towards in earnest.
+
 ## Requirements
 
 - The example expressions are correctly interpreted and give the correct result

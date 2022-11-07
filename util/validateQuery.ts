@@ -33,8 +33,6 @@ function validateSchema(schema: SchemaObject | Object): schema is SchemaObject {
 
 
 export default function validateQuery(query:string) {
-    let expressionValid:boolean = false;
-
     // check json first
     const jsonValid = validateJson(query);
     if (jsonValid !== true) return jsonValid.message;
@@ -44,7 +42,7 @@ export default function validateQuery(query:string) {
     if (schemaValid !== true) return 'Schema Validation Error';
 
     // expression validation
-    expressionValid = validateExpression(JSON.parse(query).expression);
+    const expressionValid = validateExpression(JSON.parse(query).expression);
     if (expressionValid !== true) return 'Expression Validation Error';
 
     return true;

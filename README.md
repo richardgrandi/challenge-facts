@@ -5,7 +5,7 @@ The goal of the project is to build a small interpreter for a JSON-based DSL tha
 You should aim to spend a few hours on the project; it's ok if you don't finish! Please indicate any areas that are incomplete and how you might finish them given more time.
 
 ## Developer thoughts and improvements
-I have hosted my implementation of this tool on Vercel, at (challenge-facts.vercel.app)[https://challenge-facts.vercel.app]. You can browse through the (commit history)[https://github.com/richardgrandi/challenge-facts/commits/main] to see the code I added, or I can make a PR to the original repo so you can review the code in that way. Whichever is preferable.
+I have hosted my implementation of this tool on Vercel, at [challenge-facts.vercel.app](https://challenge-facts.vercel.app). You can browse through the [commit history](https://github.com/richardgrandi/challenge-facts/commits/main) to see the code I added, or I can make a PR to the original repo so you can review the code in that way. Whichever is preferable.
 
 This tool should correctly parse the DSL query:
 - identifying invalid JSON and throwing a meaningful error
